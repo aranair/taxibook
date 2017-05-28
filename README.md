@@ -42,7 +42,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"source": { "x": -1, "y": 
 **Response:**
 
 ```json
-{ car_id: 1, total_time: 6 }
+{ "car_id": 1, "total_time": 6 }
 ```
 
 
