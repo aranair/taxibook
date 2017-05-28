@@ -22,14 +22,14 @@ class Node
 
   # Calcualte manhattan distance
   def manhattan_distance_to(node)
-    x_distance_to(node).abs + y_distance_to(node).abs
+    x_reference_to(node).abs + y_reference_to(node).abs
   end
 
-  def x_distance_to(node)
+  def x_reference_to(node)
     x - node.x
   end
 
-  def y_distance_to(node)
+  def y_reference_to(node)
     y - node.y
   end
 

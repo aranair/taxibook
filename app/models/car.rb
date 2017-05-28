@@ -23,19 +23,22 @@ class Car
     @customer_location = customer_location
     @destination = destination
     booked!
-    update_status
+    update_status # For customers who get on where the car is at.
 
     # Total_time needed
     current_location.manhattan_distance_to(customer_location) + 
       customer_location.manhattan_distance_to(destination)
   end
 
-  # Move t units towards customer or destination
   def move(units = 1)
-    return if available? || next_target.blank?
+    return if available? || next_loc.blank?
 
-    # If x is done, move y, otherwise move x
-    move_x(next_target).zero? && move_y(next_target)
+    if x_ref.zero?
+      move_y(y_ref / y_ref.abs)
+    else
+      move_x(x_ref / x_ref.abs)
+    end
+
     update_status
   end
 
@@ -47,34 +50,26 @@ class Car
   private
 
   # The next location the car should move to
-  def next_target
+  def next_loc
     customer_location.presence || destination.presence
   end
 
   # Move vertically to next location
-  def move_y(loc)
-    dist = loc.y_distance_to(current_location)
-    return dist if dist.zero?
+  def move_y(unit)
+    @current_location = Node.new(current_location.x, current_location.y + unit)
+  end
 
-    @current_location = Node.new(
-      current_location.x, 
-      current_location.y + (dist / dist.abs)
-    )
-
-    dist
+  def y_ref
+    next_loc.y_reference_to(current_location)
   end
 
   # Move horizontally to next location
-  def move_x(loc)
-    dist = loc.x_distance_to(current_location)
-    return dist if dist.zero?
+  def move_x(unit)
+    @current_location = Node.new(current_location.x + unit, current_location.y)
+  end
 
-    @current_location = Node.new(
-      current_location.x + (dist / dist.abs), 
-      current_location.y
-    )
-
-    dist
+  def x_ref
+    next_loc.x_reference_to(current_location)
   end
 
   # Checks if pick up is done, or if drop off is done.

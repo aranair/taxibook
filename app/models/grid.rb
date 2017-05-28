@@ -9,7 +9,7 @@ class Grid
     #
     # This class variable approach was used since storage was *explicitly* disallowed. 
     # The assignment was given in the weekends and I wasn't able to get confirmation if Redis
-    # was allowed so I kept to the safe side.
+    # was allowed so I kept to the safe side. 
     #
     ########################################################################################
     def cars
