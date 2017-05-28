@@ -30,7 +30,7 @@ class Car
       customer_location.manhattan_distance_to(destination)
   end
 
-  def move(units = 1)
+  def move
     return if available? || next_loc.blank?
 
     if x_ref.zero?
