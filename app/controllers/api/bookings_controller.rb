@@ -41,11 +41,11 @@ class Api::BookingsController < Api::ApiController
   private
 
   def source
-    booking_params[:source]
+    booking_params.require(:source)
   end
 
   def destination
-    booking_params[:destination]
+    booking_params.require(:destination)
   end
 
   def booking_params
